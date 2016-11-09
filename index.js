@@ -91,8 +91,8 @@ E.batch = (urls, opt)=>{
                                 proxy: proxy, index: i, attempt: attempt});
                         } catch(e) {
                             res[i] = {error: e};
-                            if (e.code=='ETIMEDOUT' && (opt.retries<0 ||
-                                attempt<=opt.retries))
+                            if (/E(SOCKET)?TIMEDOUT/.test(e.code) &&
+                                (opt.retries<0 || attempt<=opt.retries))
                             {
                                 continue;
                             }
