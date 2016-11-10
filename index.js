@@ -91,7 +91,7 @@ E.batch = (urls, opt)=>{
                                 proxy: proxy, index: i, attempt: attempt});
                         } catch(e) {
                             res[i] = {error: e};
-                            if (/E(SOCKET)?TIMEDOUT/.test(e.code) &&
+                            if (/e(socket)?timedout/i.test(e.code) &&
                                 (opt.retries<0 || attempt<=opt.retries))
                             {
                                 continue;
