@@ -31,7 +31,7 @@ E.batch = (urls, opt)=>{
             requests[key].etask.return();
         }
         requests = {};
-    };    
+    };
     etask(function*batch(){
         this.on('ensure', ()=>{
             if (this.error)
