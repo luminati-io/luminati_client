@@ -1,6 +1,6 @@
 {
   "name": "luminati_client",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Luminati Client API",
   "main": "index.js",
   "author": "Gilad Novik <gilad@hola.ca>",
