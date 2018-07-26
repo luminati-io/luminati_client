@@ -31,7 +31,7 @@ E.batch = (urls, opt)=>{
             requests[key].etask.return();
         }
         requests = {};
-    };
+    };    
     etask(function*batch(){
         this.on('ensure', ()=>{
             if (this.error)
@@ -74,19 +74,20 @@ E.batch = (urls, opt)=>{
             for (let key in auth)
                 username += '-'+key+'-'+auth[key];
             proxy = `http://${username}:${opt.password}@${proxy}:${opt.port}`;
+            const requests = opt.requests||[];
             queue.push(etask(function*task(){
                 while (urls && urls.length)
                 {
                     let i = res.length-urls.length;
                     const url = urls.shift();
+                    const req_opt = requests.shift()||opt.request;
                     for (let attempt=1; urls; attempt++)
                     {
                         requests[i] = {etask: this};
                         const e_opt = {ret_sync: [requests[i], 'req']};
                         try {
                             res[i] = yield etask.nfn_apply(e_opt, request,
-                                [assign({url: url, proxy: proxy},
-                                opt.request)]);
+                                [assign({url: url, proxy: proxy}, req_opt)]);
                             handler.emit('success', res[i], {url: url,
                                 proxy: proxy, index: i, attempt: attempt});
                         } catch(e) {
